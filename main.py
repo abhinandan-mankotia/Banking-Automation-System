@@ -9,17 +9,15 @@ import re
 import shutil
 import os
 
-# --- MODERN COLOR PALETTE ---
-BG_COLOR = "#F8FAFC"        # Light Slate (Background)
-FRAME_BG = "#FFFFFF"        # Pure White (Cards/Frames)
-PRIMARY = "#4F46E5"         # Vibrant Indigo (Headers/Main Buttons)
-SUCCESS = "#10B981"         # Emerald Green (Deposit/Create)
-DANGER = "#F43F5E"          # Rose Red (Withdraw/Delete)
-TEXT_DARK = "#0F172A"       # Dark Slate (Main Text)
-TEXT_LIGHT = "#FFFFFF"      # White (Button Text)
-ACCENT = "#38BDF8"          # Light Blue
+BG_COLOR = "#F8FAFC"        
+FRAME_BG = "#FFFFFF"       
+PRIMARY = "#4F46E5"      
+SUCCESS = "#10B981"        
+DANGER = "#F43F5E"         
+TEXT_DARK = "#0F172A"     
+TEXT_LIGHT = "#FFFFFF"   
+ACCENT = "#38BDF8"         
 
-# --- Database Initialization ---
 def init_db():
     with sqlite3.connect('bank.sqlite') as conn:
         cursor = conn.cursor()
@@ -36,9 +34,7 @@ def init_db():
 
 init_db()
 
-# --- Mock Email Function (For Demo/Portfolio Purposes) ---
 def mock_send_email(to_email, subject, body):
-    # Instead of sending a real email, we print it to the console and return True.
     print("\n" + "="*40)
     print(f"📧 MOCK EMAIL DISPATCHED")
     print(f"To: {to_email}")
@@ -48,14 +44,12 @@ def mock_send_email(to_email, subject, body):
     print("="*40 + "\n")
     return True
 
-# --- Main Window Setup ---
 win = Tk()
 win.title('Modern Banking Automation System')
 win.state('zoomed')
 win.resizable(width=False, height=False)
 win.configure(bg=BG_COLOR)
 
-# --- Headers & Footers ---
 header_title = Label(win, text="Banking Automation", font=('Segoe UI', 45, 'bold'), bg=BG_COLOR, fg=PRIMARY)
 header_title.pack(pady=(20, 0))
 
@@ -69,9 +63,8 @@ disclaimer_label.pack(side='bottom', pady=10)
 footer_title = Label(win, text="By: Abhinandan Mankotia\nEmail: rabhinandan03@gmail.com", font=('Segoe UI', 14, 'bold'), bg=BG_COLOR, fg=TEXT_DARK)
 footer_title.pack(side='bottom', pady=5)
 
-# Graceful Image Loading
 try:
-    img = Image.open('logo.png').resize((200, 100))
+    img = Image.open('banking_app logo.png').resize((200, 100))
     bitmap_img = ImageTk.PhotoImage(img, master=win)
     logo_label = Label(win, image=bitmap_img, bg=BG_COLOR)
     logo_label.place(relx=0.02, rely=0.02)
@@ -136,7 +129,6 @@ def main_screen():
         else:
             messagebox.showerror('Login', 'Invalid Role')
 
-    # --- Login UI Components ---
     Label(frm, font=('Segoe UI', 18, 'bold'), bg=FRAME_BG, fg=TEXT_DARK, text="Login to Your Account").place(relx=0.35, rely=0.05)
 
     Label(frm, font=('Segoe UI', 16), bg=FRAME_BG, text="Account Number (ACN)").place(relx=0.15, rely=0.2)
@@ -153,7 +145,6 @@ def main_screen():
     role_cb.current(0)
     role_cb.place(relx=0.45, rely=0.5, relwidth=0.4)
 
-    # --- FIXED: 'strike' changed to 'overstrike' ---
     Label(frm, font=('Segoe UI', 18, 'bold', 'overstrike'), bg=BG_COLOR, fg=PRIMARY, text=generate_captcha(), width=8).place(relx=0.25, rely=0.65)
 
     Label(frm, font=('Segoe UI', 16), bg=FRAME_BG, text="Enter Captcha").place(relx=0.45, rely=0.65)
@@ -208,7 +199,6 @@ def welcome_admin_screen():
             
             umsg = f"Hello {uname},\nWelcome to ABC Bank.\nYour ACN is: {new_acn}\nYour Pass is: {upass}\nKindly change your password when you login."
             
-            # --- Using Mock Email ---
             mock_send_email(uemail, 'Account Opened', umsg)
             messagebox.showinfo('Success', f'Mock Email Sent! Check console.\n\nAccount Created for {uname}.\nACN: {new_acn}\nPass: {upass}')
 
